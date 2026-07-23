@@ -1,11 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
-
-	"github.com/gin-gonic/gin"
-	"github.com/learnda1ly/homeschool_tracker/school"
+	"time"
 )
 
 func main() {
@@ -17,28 +16,21 @@ func main() {
 		Data:   "server running",
 	}
 
-	// Create a Gin router with default middleware (logger and recovery)
-	r := gin.Default()
-
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		jsonBytes, _ := json.Marshal(data)
+		_, _ = w.Write(jsonBytes)
 	})
 
-	r.GET("/health", func(c *gin.Context) {
-		c.JSON(http.StatusOK, data)
-	})
+	http.Handle("/", http.FileServer(http.Dir("./public")))
 
-	r.GET("/learners", func(c *gin.Context) {
-		c.JSON(http.StatusOK, school.GetLearnerList())
-	})
+	server := &http.Server{
+		Addr:         ":8080",
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
 
-	r.NoRoute(func(c *gin.Context) {
-		c.File("./public" + c.Request.URL.Path)
-	})
-
-	if err := r.Run(); err != nil {
-		log.Fatalf("failed to run server: %v", err)
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatal(err)
 	}
 }
