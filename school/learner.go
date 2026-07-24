@@ -1,7 +1,7 @@
 /* Package school supports the homeschool app with datastructures. */
 package school
 
-type Learner struct {
+type learner struct {
 	FamilyID    int32  `json:"family_id"`
 	FirstName   string `json:"first_name"`
 	Grade       string `json:"grade"`
@@ -11,8 +11,8 @@ type Learner struct {
 	LearnerType string `json:"learner_type"`
 }
 
-func GetLearnerList() []Learner {
-	return []Learner{
+func GetLearnerList() []learner {
+	return []learner{
 		{
 			ID:          1,
 			FirstName:   "Stephen",
