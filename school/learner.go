@@ -1,13 +1,14 @@
+/* Package school supports the homeschool app with datastructures. */
 package school
 
 type Learner struct {
-	ID          int32  `json:"id"`
+	FamilyID    int32  `json:"family_id"`
 	FirstName   string `json:"first_name"`
+	Grade       string `json:"grade"`
+	ID          int32  `json:"id"`
+	ImageURL    string `json:"image_url"`
 	LastName    string `json:"last_name"`
 	LearnerType string `json:"learner_type"`
-	Grade       string `json:"grade"`
-	ImageURL    string `json:"image_url"`
-	FamilyID    int32  `json:"family_id"`
 }
 
 func GetLearnerList() []Learner {
