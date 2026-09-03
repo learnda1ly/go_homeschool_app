@@ -11,6 +11,8 @@ CREATE TABLE samples(
   percentage_grade int,
   completion_time TIMESTAMP,
   scheduled_time TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- +goose Down

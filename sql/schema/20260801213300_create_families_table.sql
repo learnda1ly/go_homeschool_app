@@ -2,6 +2,8 @@
 CREATE TABLE families(
   id SERIAL PRIMARY KEY,
   family_name VARCHAR(250) NOT NULL
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- +goose Down
